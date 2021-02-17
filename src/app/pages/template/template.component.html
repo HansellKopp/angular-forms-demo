@@ -1,0 +1,127 @@
+<h4>Forms <small> Template </small></h4>
+<hr>
+<form autocomplete="off"
+  #form="ngForm"
+  (submit)="onSubmit(form)" 
+  (change)="onChange(form)"
+>
+  <div>
+
+    <div class="form-group row">
+      <label class="col-2 col-form-label">Countries</label>
+      <div class="col-8">
+        <select 
+          class="form-select m-1" aria-label="countries select"
+          name="country"
+          #country="ngModel"               
+          required
+          [ngModel]="user.country"
+          [ngClass]="{'is-invalid': country.invalid && country.touched}"
+        >
+          <option *ngFor="let country of countries" [value]="country.code">{{ country.name }}</option>
+        </select>
+        <small 
+          *ngIf="country.invalid && country.touched"
+          class="form-text text-danger ms-1">country is required
+        </small>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-2 col-form-label">Name</label>
+      <div class="col-8">
+
+        <input class="form-control m-1"
+               type="text"
+               required
+               name="name"
+               minlength="3"
+               placeholder="Name"
+               #name="ngModel"               
+               [ngModel]="user.name"
+               [ngClass]="{'is-invalid': name.invalid && name.touched}"
+        >
+        <small 
+          *ngIf="name.invalid && name.touched"
+          class="form-text text-danger ms-1">name is required
+        </small>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-2 col-form-label">Lastname</label>
+      <div class="col-8">
+
+        <input class="form-control m-1"
+               type="text"
+               required
+               name="lastname"
+               minlength="3"
+               placeholder="Lastname"
+               #lastname="ngModel"
+               [ngModel]="user.lastname"
+               [ngClass]="{'is-invalid': lastname.invalid && lastname.touched}"
+        >
+        <small 
+          *ngIf="lastname.invalid && lastname.touched"
+          class="form-text text-danger  ms-1ms-1">lastname is required
+        </small>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="form-group row">
+    <label class="col-2 col-form-label">Email</label>
+    <div class="col-8">
+
+      <input class="form-control m-1"
+             type="email"
+             required
+             name="email"
+             placeholder="Email"
+             minlength="1"
+             pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$"
+             #email="ngModel"
+             [ngModel]="user.email"
+             [ngClass]="{'is-invalid': email.invalid && email.touched}"
+      >
+      <small 
+      *ngIf="email.invalid && email.touched"
+      class="form-text text-danger  ms-1">email is required
+    </small>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label class="col-2 col-form-label">Gender</label>
+    <div class="col-8 mt-1">
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" name="genre" required type="radio" id="inlineradio1" value="m" 
+          #genre="ngModel"
+          [ngModel]="user.genre" 
+          [ngClass]="{'is-invalid': genre.invalid && genre.touched}"
+        >
+        <label class="form-check-label" for="inlineradio1">Maskulin</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" name="genre" required type="radio" id="inlineradio2" value="f" 
+          #genre="ngModel"
+          [ngModel]="user.genre"
+          [ngClass]="{'is-invalid': genre.invalid && genre.touched}"
+        >
+        <label class="form-check-label" for="inlineradio2">Femenin</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label class="col-2 col-form-label">&nbsp;</label>
+    <div class="input-group col-md-8">
+      <button type="submit" class="btn btn-outline-primary btn-block full-width">
+        Save
+      </button>
+    </div>
+  </div>
+
+</form>

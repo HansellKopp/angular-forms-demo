@@ -1,0 +1,206 @@
+<h4>Forms <small> Approach Reactive </small></h4>
+<hr>
+<form autocomplete="off" [formGroup]="form" (ngSubmit)="save()">
+
+  <div>
+
+    <div class="form-group row">
+      <label class="col-2 col-form-label">Name</label>
+      <div class="col  m-1">
+
+        <input class="form-control"
+               type="text"
+               placeholder="Name"
+               formControlName="name"
+               [class.is-invalid]="hasErrors('name')"
+        >
+        <small 
+          *ngIf="nameIsRequired"
+          class="form-text text-danger  ms-1">name is required
+        </small>
+        <small 
+        *ngIf="nameExist"
+        class="form-text text-danger  ms-1">name already exist
+      </small>
+      </div>
+    </div>
+
+
+    <div class="form-group row">
+      <label class="col-2 col-form-label">Lastname</label>
+      <div class="col  m-1">
+
+        <input class="form-control"
+               type="text"
+               placeholder="Lastname"
+               formControlName="lastname"
+               [class.is-invalid]="hasErrors('lastname')"
+        >
+        <small 
+          *ngIf="hasErrors('lastname')"
+          class="form-text text-danger  ms-1">lastname is required
+        </small>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="form-group row">
+    <label class="col-2 col-form-label">Email</label>
+    <div class="col m-1">
+      <input class="form-control"
+             type="email"
+             placeholder="Email"
+             formControlName="email"
+             [class.is-invalid]="hasErrors('email')"
+      >
+      <small    
+        *ngIf="hasErrors('email')"
+        class="form-text text-danger  ms-1">email is required
+      </small>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label class="col-2 col-form-label">Password</label>
+      <div class="col">
+        <div class="row">
+          <div class="col m-1">
+              <input class="form-control"
+                type="password"
+                placeholder="password"
+                formControlName="password"
+                [class.is-invalid]="hasErrors('password')"
+              >
+          </div>
+          <div class="col m-1">
+              <input class="form-control"
+              type="password"
+              placeholder="repeat password"
+              formControlName="passwordRepeat"
+              [class.is-invalid]="hasErrors('passwordRepeat')"
+              >
+          </div>
+          <small    
+            *ngIf="passwordsMismatch"
+            class="form-text text-danger  ms-1">password mismatch
+          </small>
+        </div>
+      </div>
+  </div>
+
+  <div class="form-group row" formGroupName="address">
+    <label class="col-2 col-form-label">Address</label>
+      <div class="col">
+        <div class="row">
+          <div class="col m-1">
+              <input class="form-control"
+                type="text"
+                placeholder="street"
+                formControlName="street"
+                [class.is-invalid]="hasErrors('address.street')"
+              >
+          </div>
+          <div class="col m-1">
+              <input class="form-control"
+              type="text"
+              placeholder="plz"
+              formControlName="zipCode"
+              [class.is-invalid]="hasErrors('address.zipCode')"
+              >
+          </div>
+      </div>
+      <div class="row">
+        <div class="col m-1">
+            <input class="form-control"
+              type="text"
+              placeholder="city"
+              formControlName="city"
+              [class.is-invalid]="hasErrors('address.city')"
+            >
+        </div>
+        <div class="col m-1">
+            <input class="form-control"
+            type="text"
+            placeholder="country"
+            formControlName="country"
+            [class.is-invalid]="hasErrors('address.country')"
+            >
+        </div>
+    </div>
+
+    </div>
+  </div>
+
+  <div class="d-grid mt-2 d-md-flex justify-content-md-end">
+
+  </div>
+  <div class="form-group row">
+    <label class="col-2 col-form-label">Contacts</label>
+    <div class="col">
+      <table class="table table-sm">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Number</th>
+          </tr>
+        </thead>
+        <tbody formArrayName="contacts">
+          <tr *ngFor="let control of contacts.controls; let i = index">
+            <th scope="row">{{ i + 1 }}</th>
+            <td>
+              <div class="d-flex gap-2">
+                <input type="text" class="form-control" [formControlName]="i">
+                <button type="button" class="btn btn-danger" (click)="removeContact(i)">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                  <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                  <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                  </svg>
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row"></th>
+            <td>
+              <div class="d-grid gap-2">
+                <button 
+                type="button"
+                class="btn btn-primary me-md-1"
+                (click)="addContact()"
+                >+ Add contact</button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+  <div class="form-group row">
+    <label class="col-2 col-form-label">&nbsp;</label>
+    <div class="input-group col-md-8 d-grid gap-2" >
+      <button type="submit" class="btn btn-outline-primary">
+        Save
+      </button>
+    </div>
+  </div>
+
+</form>
+
+<hr />
+<div class="m-2">
+Valid: {{ form.valid }}
+</div>
+<div class="m-2">
+Status: {{ form.status }}
+</div>
+<div class="m-2">
+  Errors: {{ form.status }}
+</div>  
+<div class="m-2">
+<pre>
+{{ form.value | json }}
+</pre>
+</div>
